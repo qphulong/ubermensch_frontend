@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.leftColumn {
+  flex: 1; /* Takes up half the space */
+  background-color: #ffffff; /* Light red for debugging */
+  padding: 0px;
+  overflow: auto; /* Allow scrolling if content overflows */
+}
+
+.rightColumn {
+  flex: 1; /* Takes up half the space */
+  background-color: #ffffff; /* Light green for debugging */
+  padding: 20px;
+  overflow: auto; /* Allow scrolling if content overflows */
+}

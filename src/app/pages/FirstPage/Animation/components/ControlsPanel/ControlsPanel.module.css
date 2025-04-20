@@ -1,0 +1,19 @@
+.controlsPanel {
+    width: 80%;
+    margin: 0 auto;
+    padding: 16px;
+    font-size: 18px;
+    padding-top: 30%;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 16px;
+    align-items: center;
+  }
+  
+  .label {
+    white-space: nowrap;
+  }
+  
+  .slider {
+    width: 100%;
+  }

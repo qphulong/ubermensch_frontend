@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.leftSection {
+    flex: 1; /* Takes 50% of the space */
+    height: 100%;
+    background-color:rgb(255, 255, 255);
+}
+
+.rightSection {
+    width: 50%; /* Takes the other 50% */
+    display: flex;
+    flex-direction: column;
+}
+
+.controlsPanel {
+    height: 40%; /* Top part takes 35% of right section */
+    background-color: rgb(255, 255, 255);
+}
+
+.twoDDisplay {
+    height: 60%; /* Bottom part takes 65% of right section */
+    width: 100%;
+}
+
+/* Ensure the canvas fills its container */
+.canvasContainer {
+    width: 100%;
+    height: 100%;
+}

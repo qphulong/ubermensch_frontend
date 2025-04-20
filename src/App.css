@@ -1,0 +1,34 @@
+/* Add this to your App.css or styles.css */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100wh;
+  height: 100vh;
+  overflow: hidden; /* Prevents scrollbars if not needed */
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.full-screen {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: lightblue;
+}
+
+.center-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}

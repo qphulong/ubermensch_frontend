@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Adjust based on your layout needs */
+    width:100%;
+    padding: 0px;
+}
