@@ -1,52 +1,48 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, Routes, Route } from 'react-router-dom';
-import { WEB_APP_ROUTE } from './app/global/WebAppRoute';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import FirstPage from './app/pages/FirstPage';
+import Login from './app/pages/Login';
+import Register from './app/pages/Register';
+import ProtectedPage from './app/pages/ProtectedPage';
+import { WEB_APP_ROUTE } from './app/global/WebAppRoute';
+import Home from './app/pages/Home';
 import './App.css';
 
-function App() {
-  const [data, setData] = useState<string>('');
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-    if (backendUrl) {
-      fetch(`${backendUrl}/`)
-        .then((res) => res.json())
-        .then((data) => setData(data.message))
-        .catch((error) => console.error('Error fetching data:', error));
-    } else {
-      console.error('Backend URL is not defined in the environment variables.');
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log(import.meta.env);
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    console.log('Backend URL:', backendUrl);
-  }, []);
-
-  const handleButtonClick = () => {
-    navigate(WEB_APP_ROUTE.FIRST_PAGE);
-  };
-
+export default function App() {
   return (
-    <div className="full-screen">
+    <Router>
       <Routes>
+        <Route path={WEB_APP_ROUTE.FirstPage} element={<FirstPage />} />
+        <Route path={WEB_APP_ROUTE.Home} element={<Home />} />
+        <Route path={WEB_APP_ROUTE.Login} element={<Login />} />
+        <Route path={WEB_APP_ROUTE.Register} element={<Register />} />
         <Route
-          path="/"
+          path={WEB_APP_ROUTE.Admin}
           element={
-            <div className="center-content">
-              <h1>{data || 'Loading...'}</h1>
-              <button onClick={handleButtonClick}>Click Me</button>
-            </div>
+            <ProtectedPage roleRequired="admin">
+              <h1>Admin Dashboard</h1>
+              <p>Welcome, Admin!</p>
+            </ProtectedPage>
           }
         />
-        <Route path={WEB_APP_ROUTE.FIRST_PAGE} element={<FirstPage />} />
+        <Route
+          path={WEB_APP_ROUTE.Manager}
+          element={
+            <ProtectedPage roleRequired="manager">
+              <h1>Manager Dashboard</h1>
+              <p>Welcome, Manager!</p>
+            </ProtectedPage>
+          }
+        />
+        <Route
+          path={WEB_APP_ROUTE.User}
+          element={
+            <ProtectedPage roleRequired="normal_user">
+              <h1>User Dashboard</h1>
+              <p>Welcome, User!</p>
+            </ProtectedPage>
+          }
+        />
       </Routes>
-    </div>
+    </Router>
   );
 }
-
-export default App;

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './FirstPage.module.css';
 import Animation from './Animation/Animation';
 import Post from './Post/Post';
+import AuthWrapper from '../../components/AuthWrapper';
 
 const FirstPage: React.FC = () => {
   return (
@@ -16,4 +17,4 @@ const FirstPage: React.FC = () => {
   );
 };
 
-export default FirstPage;
+export default AuthWrapper(FirstPage);
