@@ -1,0 +1,6 @@
+.field-error {
+  margin-top: 0.25rem;
+  color: red;
+  font-size: 0.75rem;
+  line-height: calc(1 / 0.75);
+}
