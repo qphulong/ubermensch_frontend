@@ -1,0 +1,23 @@
+.rightPanel {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: #E8ECEF;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  padding: 20px; /* Add padding to ensure content isn't flush against edges */
+  box-sizing: border-box; /* Ensure padding doesn't affect width/height */
+}
+
+.emailPreview {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: left; /* Left-align text for email previews */
+  box-sizing: border-box;
+}
+
+.noDataMessage {
+  text-align: center; /* Center text for no data message */
+}

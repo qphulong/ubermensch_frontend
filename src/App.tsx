@@ -2,48 +2,22 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Routes, Route } from 'react-router-dom';
 import { WEB_APP_ROUTE } from './app/global/WebAppRoute';
 import FirstPage from './app/pages/FirstPage';
+import SimpleAutoMailSend from '@/pages/SimpleAutoMailSend';
 import './App.css';
+import Login from '@/pages/auth/login';
+import SearchEngine from '@/pages/SearchEngine';
+import AuthLayout from '@/layouts/auth-layout';
 
 function App() {
-  const [data, setData] = useState<string>('');
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-    if (backendUrl) {
-      fetch(`${backendUrl}/`)
-        .then((res) => res.json())
-        .then((data) => setData(data.message))
-        .catch((error) => console.error('Error fetching data:', error));
-    } else {
-      console.error('Backend URL is not defined in the environment variables.');
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log(import.meta.env);
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    console.log('Backend URL:', backendUrl);
-  }, []);
-
-  const handleButtonClick = () => {
-    navigate(WEB_APP_ROUTE.FIRST_PAGE);
-  };
-
   return (
     <div className="full-screen">
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="center-content">
-              <h1>{data || 'Loading...'}</h1>
-              <button onClick={handleButtonClick}>Click Me</button>
-            </div>
-          }
-        />
+        <Route path={WEB_APP_ROUTE.SEARCH_ENGINE} element={<SearchEngine />} />
         <Route path={WEB_APP_ROUTE.FIRST_PAGE} element={<FirstPage />} />
+        <Route path={WEB_APP_ROUTE.SIMPLE_AUTO_SEND_MAIL} element={<SimpleAutoMailSend />} />
+        <Route element={<AuthLayout/>}>
+          <Route path='/login' element={<Login/>}/>
+        </Route>
       </Routes>
     </div>
   );
