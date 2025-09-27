@@ -1,50 +1,75 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f9fafb 0%, #e0e7ff 100%);
-  padding: 1rem;
+:root {
+  --theme: #202020;
+  --white: #FFFFFF;
+  --accent: #BFA36A;
+  /* optional */
 }
 
-.title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 2rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-  letter-spacing: -0.025em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 25vh 2rem 2rem;
+  background: var(--theme);
 }
+
+
+.inner {
+  width: 100%;
+  max-width: 44rem;
+  text-align: center;
+}
+
+
+.title {
+  font-family: "Bodoni MT", "Didot", Georgia, serif;
+  color: var(--white);
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
 
 .inputWrapper {
   width: 100%;
-  max-width: 672px;
 }
+
 
 .searchInput {
   width: 100%;
-  padding: 1rem 1.5rem;
-  font-size: 1.125rem;
-  color: #1f2937;
-  background-color: #ffffff;
-  border: none;
+  padding: 0.95rem 1.25rem;
+  font-size: 1rem;
   border-radius: 9999px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: none;
   outline: none;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--white);
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.2s ease, transform 0.12s ease;
 }
 
-.searchInput:focus {
-  box-shadow: 0 0 0 2px #6366f1;
-}
 
 .searchInput::placeholder {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-.searchInput:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+.searchInput:focus {
+  box-shadow: 0 0 0 6px rgba(191, 163, 106, 0.06);
+}
+
+
+/* small helper for screen-readers if needed */
+.srOnly {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

@@ -6,6 +6,7 @@ import SimpleAutoMailSend from '@/pages/SimpleAutoMailSend';
 import './App.css';
 import Login from '@/pages/auth/login';
 import SearchEngine from '@/pages/SearchEngine';
+import SearchResult from '@/pages/SearchResults';
 import AuthLayout from '@/layouts/auth-layout';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <div className="full-screen">
       <Routes>
         <Route path={WEB_APP_ROUTE.SEARCH_ENGINE} element={<SearchEngine />} />
+        <Route path={WEB_APP_ROUTE.SEARCH_RESULTS} element={<SearchResult/>} />
         <Route path={WEB_APP_ROUTE.FIRST_PAGE} element={<FirstPage />} />
         <Route path={WEB_APP_ROUTE.SIMPLE_AUTO_SEND_MAIL} element={<SimpleAutoMailSend />} />
         <Route element={<AuthLayout/>}>
