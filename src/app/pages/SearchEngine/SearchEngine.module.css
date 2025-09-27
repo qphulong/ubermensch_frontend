@@ -9,9 +9,9 @@
 .container {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 2rem;
+  padding: 25vh 2rem 2rem;
   background: var(--theme);
 }
 

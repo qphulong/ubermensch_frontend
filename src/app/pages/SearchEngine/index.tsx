@@ -17,7 +17,7 @@ const SearchEngine: React.FC = () => {
     return (
         <div className={styles.container}>
             <div className={styles.inner}>
-                <h1 className={styles.title}>Search Übermensch</h1>
+                <h1 className={styles.title}>Search in Übermensch</h1>
                 <div className={styles.inputWrapper}>
                     <input
                         id="search"
@@ -25,7 +25,7 @@ const SearchEngine: React.FC = () => {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        placeholder="Explore the collection..."
+                        placeholder="Explore the ideas ..."
                         className={styles.searchInput}
                         aria-label="Search Übermensch"
                         autoComplete="off"
