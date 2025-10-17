@@ -30,7 +30,7 @@ const SearchResult: React.FC = () => {
             try {
                 console.log("Sending search query:", query);
 
-                const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}pages/search`, {
+                const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/pages/search`, {
                     method: 'POST',
                     headers: {
                         accept: 'application/json',
