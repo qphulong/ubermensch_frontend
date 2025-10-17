@@ -1,0 +1,33 @@
+.container {
+max-width: 860px;
+margin: 18px auto;
+padding: 16px;
+border-radius: 10px;
+border: 1px solid #e5e7eb;
+font-family: Inter, Arial, sans-serif;
+}
+.label {
+font-weight: 600;
+margin-top: 10px;
+}
+.textarea {
+min-height: 120px;
+width: 100%;
+padding: 8px;
+font-family: monospace;
+border-radius: 6px;
+border: 1px solid #d1d5db;
+}
+.row { margin-top: 12px; }
+.button {
+padding: 8px 12px;
+background: #2563eb;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+}
+.status { margin-top: 8px; }
+.resultBox { margin-top: 12px; padding: 12px; background: #f8fafc; border-radius: 8px; }
+.embeddingPre { background: #0b1220; color: #e6eef6; padding: 12px; border-radius: 6px; overflow: auto; max-height: 260px; }
+.footer { margin-top: 12px; font-size: 0.95rem; }
