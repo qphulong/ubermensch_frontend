@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./MainSpace.module.css";
+import MicIcon from '@mui/icons-material/Mic';
+import StopIcon from '@mui/icons-material/Stop';
 
 interface MainSpaceProps {
   apiKey: string | null;
@@ -125,12 +127,12 @@ const MainSpace: React.FC<MainSpaceProps> = ({ apiKey }) => {
           <div className={styles.section}>
             <h3>Speech → Text (STT)</h3>
             <div className={styles.recordingControls}>
-              <button onClick={handleStartRecording} className={styles.buttonAlt}>
-                🎙
-              </button>
-              <button onClick={handleStopRecording} className={styles.buttonAlt}>
-                ⏹
-              </button>
+                <button onClick={handleStartRecording} className={styles.buttonAlt}>
+                    <MicIcon />
+                </button>
+                <button onClick={handleStopRecording} className={styles.buttonAlt}>
+                    <StopIcon />
+                </button>
             </div>
             {isRecording && <p style={{ color: "red" }}>Recording...</p>}
             {sttLoading && <p>Transcribing...</p>}
