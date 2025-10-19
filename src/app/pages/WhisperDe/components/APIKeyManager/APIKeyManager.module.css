@@ -1,0 +1,58 @@
+.apiKeyManager {
+  flex: 0 0 30%;
+  padding: 20px;
+  background-color: #fafafa;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.section {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #43a047;
+}
+
+.buttonDelete {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e53935;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.buttonDelete:hover {
+  background-color: #c62828;
+}
+
+.status {
+  margin-top: 8px;
+  font-weight: 500;
+}

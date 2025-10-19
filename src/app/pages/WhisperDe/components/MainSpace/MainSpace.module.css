@@ -1,0 +1,64 @@
+.mainSpace {
+  width: 60%;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.section {
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.textInput {
+  width: 100%; /* Ensure it takes full width of the parent */
+  min-height: 100px;
+  padding: 10px;
+  font-size: 16px;
+  resize: none;
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+.button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.audioPlayer {
+  margin-top: 10px;
+}
+
+.recordingControls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.buttonAlt {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #50b250;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.resultBox {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 6px;
+}
