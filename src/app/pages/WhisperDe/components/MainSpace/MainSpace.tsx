@@ -116,9 +116,9 @@ const MainSpace: React.FC<MainSpaceProps> = ({ apiKey }) => {
                     onChange={(e) => setLanguage(e.target.value)}
                     className={styles.select}
                 >
-                    <option value="en">English</option>
-                    <option value="de">German</option>
-                    <option value="ja">Japanese</option>
+                    <option value="en">English 🇺🇸</option>
+                    <option value="de">German 🇩🇪</option>
+                    <option value="ja">Japanese 🇯🇵</option>
                 </select>
             </div>
           {/* ---------- STT Section ---------- */}
