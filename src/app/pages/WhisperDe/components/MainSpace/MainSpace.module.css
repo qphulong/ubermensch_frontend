@@ -1,7 +1,7 @@
 .mainSpace {
   width: 60%;
   padding: 20px;
-  background-color: #f5f5f5;
+  background: #f5f5f5;
   border-right: 1px solid #ddd;
   display: flex;
   flex-direction: column;
@@ -16,23 +16,31 @@
 }
 
 .textInput {
-  width: 100%; /* Ensure it takes full width of the parent */
+  width: 100%;
   min-height: 100px;
   padding: 10px;
   font-size: 16px;
   resize: none;
-  box-sizing: border-box; /* Include padding and border in the element's total width */
+  box-sizing: border-box;
+}
+
+.button,
+.buttonAlt {
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .button {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
-  margin-top: 10px;
+  background: #4a90e2;
+}
+
+.buttonAlt {
+  background: #50b250;
 }
 
 .audioPlayer {
@@ -45,20 +53,48 @@
   margin-top: 10px;
 }
 
-.buttonAlt {
-  padding: 10px;
-  font-size: 16px;
-  background-color: #50b250;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
 .resultBox {
   margin-top: 15px;
   padding: 10px;
   border: 1px solid #ddd;
   background: #fafafa;
   border-radius: 6px;
+}
+
+.languageSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.select {
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.select:hover,
+.select:focus {
+  border-color: #4a90e2;
+}
+
+.select:focus {
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+  outline: none;
 }

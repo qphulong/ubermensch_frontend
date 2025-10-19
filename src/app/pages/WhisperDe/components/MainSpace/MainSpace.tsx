@@ -106,19 +106,21 @@ const MainSpace: React.FC<MainSpaceProps> = ({ apiKey }) => {
 
       {apiKey && (
         <>
-          <div>
-            <label htmlFor="language-select">Transcription Language: </label>
-            <select
-              id="language-select"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-            >
-              <option value="en">English</option>
-              <option value="de">German</option>
-              <option value="ja">Japanese</option>
-            </select>
-          </div>
-
+            <div className={styles.languageSelector}>
+                <label htmlFor="language-select" className={styles.label}>
+                    🌐 Language
+                </label>
+                <select
+                    id="language-select"
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                    className={styles.select}
+                >
+                    <option value="en">English</option>
+                    <option value="de">German</option>
+                    <option value="ja">Japanese</option>
+                </select>
+            </div>
           {/* ---------- STT Section ---------- */}
           <div className={styles.section}>
             <h3>Speech → Text (STT)</h3>
