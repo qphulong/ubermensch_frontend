@@ -5,7 +5,6 @@ import MainSpace from "./components/MainSpace/MainSpace";
 import APIKeyManager from "./components/APIKeyManager/APIKeyManager";
 import History from "./components/History/History";
 export interface HistoryItem {
-  id: string;
   user: {
     text?: string;
     speechUrl?: string;
@@ -133,6 +132,31 @@ const SimpleDEPronunciationCheck: React.FC = () => {
     };
   };
 
+  const handleAppendHistory = (item: HistoryItem) => {
+    if (!item.user.text && !item.user.speechUrl) {
+      return { success: false, missing: "user.text or user.speechUrl" };
+    }
+
+    if (!item.model.text && !item.model.speechUrl) {
+      return { success: false, missing: "model.text or model.speechUrl" };
+    }
+
+    const alreadyExists = history.some(
+      (h) =>
+        h.user.text === item.user.text &&
+        h.user.speechUrl === item.user.speechUrl &&
+        h.model.text === item.model.text &&
+        h.model.speechUrl === item.model.speechUrl
+    );
+
+    if (alreadyExists) {
+      return { success: false, missing: "already in list" };
+    }
+
+    setHistory((prev) => [...prev, item]);
+    return { success: true };
+  };
+
   return (
     <div className={styles.layout}>
       <MainSpace
@@ -149,6 +173,7 @@ const SimpleDEPronunciationCheck: React.FC = () => {
         handleStartRecording={handleStartRecording}
         handleStopRecording={handleStopRecording}
         handleGenerateSpeech={handleGenerateSpeech}
+        handleAppendHistory={handleAppendHistory}
       />
       <div className={styles.rightSide}>
         <APIKeyManager apiKey={apiKey} saveKey={saveKey} deleteKey={deleteKey} />
