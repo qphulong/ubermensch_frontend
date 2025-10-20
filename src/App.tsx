@@ -3,7 +3,7 @@ import { useNavigate, Routes, Route } from 'react-router-dom';
 import { WEB_APP_ROUTE } from './app/global/WebAppRoute';
 import FirstPage from './app/pages/FirstPage';
 import SimpleAutoMailSend from '@/pages/SimpleAutoMailSend';
-import SimpleDEPronuciationCheck from '@/pages/WhisperDe/SimpleDEPronuciationCheck';
+import SimpleDEPronuciationCheck from '@/pages/SimpleDEPronunciationCheck/SimpleDEPronuciationCheck';
 import './App.css';
 import Login from '@/pages/auth/login';
 import SearchEngine from '@/pages/SearchEngine';
