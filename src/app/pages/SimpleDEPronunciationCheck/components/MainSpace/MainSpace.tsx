@@ -4,6 +4,9 @@ import styles from "./MainSpace.module.css";
 import MicIcon from '@mui/icons-material/Mic';
 import StopIcon from '@mui/icons-material/Stop';
 import { HistoryItem } from '../../SimpleDEPronuciationCheck';
+import { styled } from "@mui/material/styles";
+import { FormControl, InputLabel, MenuItem, Select, Box } from "@mui/material";
+import LanguageIcon from "@mui/icons-material/Language";
 
 interface MainSpaceProps {
   apiKey: string | null;
@@ -60,112 +63,117 @@ const MainSpace: React.FC<MainSpaceProps> = ({
     }
   }
 
-  return (
-    <div className={styles.mainSpace}>
-      {!apiKey && <p>No API key available.</p>}
-      {apiKey && (
-        <>
-          <div className={styles.languageSelector}>
-            <label htmlFor="language-select" className={styles.label}>
-              🌐 Language
-            </label>
-            <select
+return (
+  <div className={styles.mainSpace}>
+    {!apiKey && <p>No API key available.</p>}
+
+    {apiKey && (
+      <div className={styles.container}>
+        {/* ---------- 1️⃣ Language Selector ---------- */}
+        <Box className={styles.languageSection}>
+          <LanguageIcon color="primary" className={styles.icon} />
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel id="language-select-label">Language</InputLabel>
+            <Select
+              labelId="language-select-label"
               id="language-select"
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
+              label="Language"
               className={styles.select}
             >
-              <option value="en">English 🇺🇸</option>
-              <option value="de">German 🇩🇪</option>
-              <option value="ja">Japanese 🇯🇵</option>
-            </select>
-          </div>
+              <MenuItem value="en">🇺🇸 English</MenuItem>
+              <MenuItem value="de">🇩🇪 German</MenuItem>
+              <MenuItem value="ja">🇯🇵 Japanese</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
-          {/* ---------- STT Section ---------- */}
-          <div className={styles.section}>
-            <h3 className={styles.h3}>Speech → Text (STT)</h3>
-            <div className={styles.rowBetween}>
-              <div className={styles.recordingControls}>
-                <button
-                  onClick={handleStartRecording}
-                  className={`${styles.buttonAlt} ${styles.iconButton}`}
-                  aria-pressed={isRecording}
-                >
-                  <MicIcon />
-                </button>
-                <button
-                  onClick={handleStopRecording}
-                  className={`${styles.buttonAlt} ${styles.iconButton}`}
-                >
-                  <StopIcon />
-                </button>
-                {isRecording && <span className={styles.recordingPill}>Recording…</span>}
-                {sttLoading && <span className={styles.loadingText}>Transcribing…</span>}
-              </div>
-
-              <div className={styles.resultRight}>
-                {recognizedText ? (
-                  <div className={styles.resultBox} role="region" aria-live="polite">
-                    <p><strong>Recognized:</strong></p>
-                    <div className={styles.resultScroll}>{recognizedText}</div>
-                  </div>
-                ) : (
-                  <div className={styles.resultBoxEmpty}>No recognition yet</div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* ---------- TTS Section ---------- */}
-          <div className={styles.section}>
-            <h3 className={styles.h3}>Text → Speech (TTS)</h3>
-            <div className={styles.rowBetween}>
-              <textarea
-                className={styles.textInput}
-                value={ttsText}
-                onChange={(e) => setTtsText(e.target.value)}
-                placeholder="Enter text to convert to speech..."
-              />
-              <div className={styles.resultRight}>
-                <button
-                  onClick={handleGenerateSpeech}
-                  disabled={ttsLoading || !ttsText}
-                  className={styles.button}
-                >
-                  {ttsLoading ? "Generating…" : "🔊 Generate Speech"}
-                </button>
-                {audioUrl && (
-                  <audio controls src={audioUrl} className={styles.audioPlayer} />
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* ---------- History Section ---------- */}
-          <div className={styles.section}>
-            <h3 className={styles.h3}>📜 Save to History</h3>
-            <div className={styles.rowBetween}>
+        {/* ---------- 2️⃣ STT Section ---------- */}
+        <div className={`${styles.sttSection}`}>
+          <h3>Speech → Text (STT)</h3>
+          <div className={styles.rowBetween}>
+            <div className={styles.recordingControls}>
               <button
-                className={styles.button}
-                onClick={onAppendHistoryClick}
-                disabled={!recognizedText && !ttsText && !audioUrl}
+                onClick={handleStartRecording}
+                className={`${styles.buttonAlt} ${styles.iconButton}`}
+                aria-pressed={isRecording}
               >
-                ➕ Add to History
+                <MicIcon />
               </button>
-              {toast.visible && (
-                <div
-                  className={`${styles.toast} ${toast.type === "error" ? styles.toastError : styles.toastSuccess}`}
-                  role="status"
-                >
-                  {toast.message}
+              <button
+                onClick={handleStopRecording}
+                className={`${styles.buttonAlt} ${styles.iconButton}`}
+              >
+                <StopIcon />
+              </button>
+              {isRecording && <span className={styles.recordingPill}>Recording…</span>}
+              {sttLoading && <span className={styles.loadingText}>Transcribing…</span>}
+            </div>
+
+            <div className={styles.resultRight}>
+              {recognizedText ? (
+                <div className={styles.resultBox} role="region" aria-live="polite">
+                  <p><strong>Recognized:</strong></p>
+                  <div className={styles.resultScroll}>{recognizedText}</div>
                 </div>
+              ) : (
+                <div className={styles.resultBoxEmpty}>No recognition yet</div>
               )}
             </div>
           </div>
-        </>
-      )}
-    </div>
-  );
+        </div>
+
+        {/* ---------- 3️⃣ TTS Section ---------- */}
+        <div className={`${styles.section} ${styles.ttsSection}`}>
+          <h3>Text → Speech (TTS)</h3>
+          <div className={styles.rowBetween}>
+            <textarea
+              className={styles.textInput}
+              value={ttsText}
+              onChange={(e) => setTtsText(e.target.value)}
+              placeholder="Enter text to convert to speech..."
+            />
+            <div className={styles.resultRight}>
+              <button
+                onClick={handleGenerateSpeech}
+                disabled={ttsLoading || !ttsText}
+                className={styles.button}
+              >
+                {ttsLoading ? "Generating…" : "🔊 Generate Speech"}
+              </button>
+              {audioUrl && <audio controls src={audioUrl} className={styles.audioPlayer} />}
+            </div>
+          </div>
+        </div>
+
+        {/* ---------- 4️⃣ History Section ---------- */}
+        <div className={`${styles.historySection}`}>
+          <h3>📜 Save to History</h3>
+          <div className={styles.rowBetween}>
+            <button
+              className={styles.button}
+              onClick={onAppendHistoryClick}
+              disabled={!recognizedText && !ttsText && !audioUrl}
+            >
+              ➕ Add to History
+            </button>
+            {toast.visible && (
+              <div
+                className={`${styles.toast} ${
+                  toast.type === "error" ? styles.toastError : styles.toastSuccess
+                }`}
+                role="status"
+              >
+                {toast.message}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+);
 };
 
 export default MainSpace;

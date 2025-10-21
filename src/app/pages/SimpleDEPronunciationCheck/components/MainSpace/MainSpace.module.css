@@ -1,166 +1,51 @@
 .mainSpace {
+  height: 100%h;
   width: 60%;
-  padding: 8px;
-  background: #f5f5f5;
-  border-right: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  height: 100%;
-  overflow: hidden;
+  background-color: rgb(226, 170, 96);
 }
 
-.section {
-  padding: 8px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  display: flex;
+.container {
   flex-direction: column;
-  gap: 6px;
-  position: relative;
-}
-
-.textInput {
   width: 100%;
-  min-height: 100px;
-  padding: 10px;
-  font-size: 16px;
-  resize: none;
-  box-sizing: border-box;
+  height: 100%;
 }
 
-.button,
-.buttonAlt {
-  padding: 10px;
-  font-size: 16px;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.button {
-  background: #4a90e2;
-}
-
-.buttonAlt {
-  width: 40px;
-  height: 40px;
+/* Language Selector */
+.languageSection {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  background: #50b250;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 10px;
+  gap: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 16px;
+  height: 15%;
+  background-color: #fafafa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.audioPlayer {
-  margin-top: 10px;
-}
-
-.recordingControls {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.resultBox {
-  margin-top: 15px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  background: #fafafa;
-  border-radius: 6px;
-}
-
-.languageSelector {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
+.icon {
+  font-size: 28px !important;
 }
 
 .select {
-  padding: 10px 12px;
-  font-size: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 12px !important;
+  background-color: #fff !important;
 }
 
-.select:hover,
-.select:focus {
-  border-color: #4a90e2;
+
+
+
+.sttSection {
+  height: 30%;
+  border: 1px solid black;
 }
 
-.select:focus {
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
-  outline: none;
+.ttsSection {
+  height: 30%;
+  border: 1px solid black;
 }
 
-.rowBetween {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.resultRight {
-  flex: 1;
-  max-width: 45%; /* so it stays on right side */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-}
-
-.resultRight {
-  flex: 1;
-  max-width: 45%; /* so it stays on right side */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-}
-
-.resultBox,
-.resultBoxEmpty {
-  padding: 8px;
-  border: 1px solid #ddd;
-  background: #fafafa;
-  border-radius: 6px;
-  font-size: 14px;
-  max-height: 120px;
-  overflow-y: auto;
-}
-
-.audioPlayer {
-  margin-top: 6px;
-  width: 100%;
-}
-
-.toast {
-  margin-left: auto; /* push to right */
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 14px;
-  white-space: nowrap;
+.historySection {
+  height: 25%;
+  border: 1px solid black;
 }
