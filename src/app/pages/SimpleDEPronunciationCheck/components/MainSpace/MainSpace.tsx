@@ -90,62 +90,62 @@ return (
         </Box>
 
         {/* ---------- 2️⃣ STT Section ---------- */}
-        <div className={`${styles.sttSection}`}>
+        <div className={styles.sttSection}>
           <h3>Speech → Text (STT)</h3>
-          <div className={styles.rowBetween}>
-            <div className={styles.recordingControls}>
-              <button
-                onClick={handleStartRecording}
-                className={`${styles.buttonAlt} ${styles.iconButton}`}
-                aria-pressed={isRecording}
-              >
-                <MicIcon />
-              </button>
-              <button
-                onClick={handleStopRecording}
-                className={`${styles.buttonAlt} ${styles.iconButton}`}
-              >
-                <StopIcon />
-              </button>
-              {isRecording && <span className={styles.recordingPill}>Recording…</span>}
-              {sttLoading && <span className={styles.loadingText}>Transcribing…</span>}
+          <div className={styles.sttContainer}>
+            <div className={styles.sttInput}>
+              <div className={styles.sttButtons}>
+                <button onClick={handleStartRecording} aria-pressed={isRecording}>
+                  <MicIcon />
+                </button>
+                <button onClick={handleStopRecording}>
+                  <StopIcon />
+                </button>
+              </div>
+
+              <div className={styles.sttStatus}>
+                {isRecording && <span>Recording…</span>}
+                {sttLoading && <span>Transcribing…</span>}
+              </div>
             </div>
 
-            <div className={styles.resultRight}>
+            <div className={styles.sttOutput}>
               {recognizedText ? (
-                <div className={styles.resultBox} role="region" aria-live="polite">
+                <div role="region" aria-live="polite">
                   <p><strong>Recognized:</strong></p>
-                  <div className={styles.resultScroll}>{recognizedText}</div>
+                  <div>{recognizedText}</div>
                 </div>
               ) : (
-                <div className={styles.resultBoxEmpty}>No recognition yet</div>
+                <div>No recognition yet</div>
               )}
             </div>
           </div>
         </div>
 
         {/* ---------- 3️⃣ TTS Section ---------- */}
-        <div className={`${styles.section} ${styles.ttsSection}`}>
+        <div className={styles.ttsSection}>
           <h3>Text → Speech (TTS)</h3>
-          <div className={styles.rowBetween}>
-            <textarea
-              className={styles.textInput}
-              value={ttsText}
-              onChange={(e) => setTtsText(e.target.value)}
-              placeholder="Enter text to convert to speech..."
-            />
-            <div className={styles.resultRight}>
+          <div className={styles.ttsContainer}>
+            <div className={styles.ttsLeft}>
+              <textarea
+                value={ttsText}
+                onChange={(e) => setTtsText(e.target.value)}
+                placeholder="Enter text to convert to speech..."
+              />
               <button
                 onClick={handleGenerateSpeech}
                 disabled={ttsLoading || !ttsText}
-                className={styles.button}
               >
                 {ttsLoading ? "Generating…" : "🔊 Generate Speech"}
               </button>
-              {audioUrl && <audio controls src={audioUrl} className={styles.audioPlayer} />}
+            </div>
+
+            <div className={styles.ttsRight}>
+              {audioUrl && <audio controls src={audioUrl} />}
             </div>
           </div>
         </div>
+
 
         {/* ---------- 4️⃣ History Section ---------- */}
         <div className={`${styles.historySection}`}>
