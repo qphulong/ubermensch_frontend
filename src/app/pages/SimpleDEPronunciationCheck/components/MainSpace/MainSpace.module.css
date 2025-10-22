@@ -14,11 +14,12 @@
 /* Language Selector */
 .languageSection {
   display: flex;
-  align-items: center;
+  flex-direction: column; 
   gap: 0.75rem;
   border-bottom: 1px solid #ccc;
   padding: 16px;
   height: 15%;
+  padding-top: 36px;
 }
 
 .icon {
@@ -28,6 +29,17 @@
 .select {
   border-radius: 12px !important;
   background-color: #fff !important;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.note {
+  font-size: 0.9rem;
+  color: #202020;
 }
 
 /* SST Section */

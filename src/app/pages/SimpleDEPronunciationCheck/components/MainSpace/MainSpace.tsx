@@ -70,22 +70,27 @@ return (
       <div className={styles.container}>
         {/* ---------- 1️⃣ Language Selector ---------- */}
         <Box className={styles.languageSection}>
-          <LanguageIcon color="primary" className={styles.icon} />
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel id="language-select-label">Language</InputLabel>
-            <Select
-              labelId="language-select-label"
-              id="language-select"
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              label="Language"
-              className={styles.select}
-            >
-              <MenuItem value="en">🇺🇸 English</MenuItem>
-              <MenuItem value="de">🇩🇪 German</MenuItem>
-              <MenuItem value="ja">🇯🇵 Japanese</MenuItem>
-            </Select>
-          </FormControl>
+          <div className={styles.topRow}>
+            <LanguageIcon color="primary" className={styles.icon} />
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel id="language-select-label">Language</InputLabel>
+              <Select
+                labelId="language-select-label"
+                id="language-select"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                label="Language"
+                className={styles.select}
+              >
+                <MenuItem value="en">🇺🇸 English</MenuItem>
+                <MenuItem value="de">🇩🇪 German</MenuItem>
+                <MenuItem value="ja">🇯🇵 Japanese</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+          <div className={styles.note}>
+            Hint: Practicing full sentences like "The stars shine in the sky" may help improve accuracy.
+          </div>
         </Box>
 
         {/* ---------- 2️⃣ STT Section ---------- */}
