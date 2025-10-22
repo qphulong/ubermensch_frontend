@@ -35,7 +35,6 @@
 /* SST Section */
 .sttSection {
   height: 30%;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
 }
@@ -99,7 +98,6 @@
 .ttsSection {
   width: 100%;
   height: 30%;
-  border: 1px solid #000;
   display: flex;
   flex-direction: column;
 }
@@ -117,7 +115,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid #000;
   background: #f5f5f5;
 }
 
@@ -197,5 +194,25 @@
 /* History */
 .historySection {
   height: 25%;
-  border: 1px solid black;
+}
+
+.history-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toast {
+  padding: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.toast-error {
+  background-color: #f87171;
+  color: white;
+}
+
+.toast-success {
+  background-color: #4ade80;
+  color: white;
 }

@@ -4,8 +4,7 @@ import styles from "./MainSpace.module.css";
 import MicIcon from '@mui/icons-material/Mic';
 import StopIcon from '@mui/icons-material/Stop';
 import { HistoryItem } from '../../SimpleDEPronuciationCheck';
-import { styled } from "@mui/material/styles";
-import { FormControl, InputLabel, MenuItem, Select, Box } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, Box, Button } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 
 interface MainSpaceProps {
@@ -91,7 +90,7 @@ return (
 
         {/* ---------- 2️⃣ STT Section ---------- */}
         <div className={styles.sttSection}>
-          <h3>Speech → Text (STT)</h3>
+          <h3 style={{ marginLeft: '8px' }}>Speech → Text (STT)</h3>
           <div className={styles.sttContainer}>
             <div className={styles.sttInput}>
               <div className={styles.sttButtons}>
@@ -116,7 +115,7 @@ return (
                   <div>{recognizedText}</div>
                 </div>
               ) : (
-                <div>No recognition yet</div>
+                <></>
               )}
             </div>
           </div>
@@ -124,7 +123,7 @@ return (
 
         {/* ---------- 3️⃣ TTS Section ---------- */}
         <div className={styles.ttsSection}>
-          <h3>Text → Speech (TTS)</h3>
+          <h3 style={{ marginLeft: '8px' }}>Text → Speech (TTS)</h3>
           <div className={styles.ttsContainer}>
             <div className={styles.ttsLeft}>
               <textarea
@@ -152,21 +151,22 @@ return (
 
 
         {/* ---------- 4️⃣ History Section ---------- */}
-        <div className={`${styles.historySection}`}>
-          <h3>📜 Save to History</h3>
-          <div className={styles.rowBetween}>
-            <button
-              className={styles.button}
+        <div className="history-section">
+          <h3 style={{ marginLeft: '8px' }}>Save to History</h3>
+          <div className="history-content">
+            <Button
+              variant="contained"
+              color="primary"
               onClick={onAppendHistoryClick}
-              disabled={!recognizedText && !ttsText && !audioUrl}
+              disabled={!recognizedText || !ttsText || !audioUrl}
+              sx={{ marginLeft: '8px', textTransform: 'none' }}
+              startIcon={<span>➕</span>}
             >
-              ➕ Add to History
-            </button>
+              Add to History
+            </Button>
             {toast.visible && (
               <div
-                className={`${styles.toast} ${
-                  toast.type === "error" ? styles.toastError : styles.toastSuccess
-                }`}
+                className={`toast ${toast.type === "error" ? "toast-error" : "toast-success"}`}
                 role="status"
               >
                 {toast.message}
