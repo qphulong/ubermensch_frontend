@@ -132,16 +132,20 @@ return (
                 onChange={(e) => setTtsText(e.target.value)}
                 placeholder="Enter text to convert to speech..."
               />
-              <button
-                onClick={handleGenerateSpeech}
-                disabled={ttsLoading || !ttsText}
-              >
-                {ttsLoading ? "Generating…" : "🔊 Generate Speech"}
-              </button>
             </div>
 
             <div className={styles.ttsRight}>
-              {audioUrl && <audio controls src={audioUrl} />}
+              <div className={styles.upperDiv}>
+                <button
+                  onClick={handleGenerateSpeech}
+                  disabled={ttsLoading || !ttsText}
+                >
+                  {ttsLoading ? "Generating…" : "🔊 Generate Speech"}
+                </button>
+              </div>
+              <div className={styles.lowerDiv}>
+                {audioUrl && <audio controls src={audioUrl} />}
+              </div>
             </div>
           </div>
         </div>
