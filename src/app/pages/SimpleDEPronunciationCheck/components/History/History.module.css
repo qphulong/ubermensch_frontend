@@ -1,0 +1,73 @@
+.historyContainer {
+  height: 100%;
+  overflow-y: auto;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin-bottom: 0.6rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s ease;
+}
+
+.item:hover {
+  background: #f2f2f2;
+}
+
+.userBlock,
+.modelBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.3rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+}
+
+.text {
+  flex: 1;
+  margin: 0;
+  color: #333;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.playButton {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+
+.playButton:hover {
+  background: #005ec2;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  margin: 1rem 0;
+}

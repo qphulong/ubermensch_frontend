@@ -7,7 +7,6 @@ import History from "./components/History/History";
 export interface HistoryItem {
   user: {
     text?: string;
-    speechUrl?: string;
   };
   model: {
     text?: string;
@@ -133,24 +132,23 @@ const SimpleDEPronunciationCheck: React.FC = () => {
   };
 
   const handleAppendHistory = (item: HistoryItem) => {
-    if (!item.user.text && !item.user.speechUrl) {
-      return { success: false, missing: "user.text or user.speechUrl" };
+    if (!item.user.text) {
+      return { success: false, missing: "User input text missing" };
     }
 
     if (!item.model.text && !item.model.speechUrl) {
-      return { success: false, missing: "model.text or model.speechUrl" };
+      return { success: false, missing: "SST Model input or output missing" };
     }
 
     const alreadyExists = history.some(
       (h) =>
         h.user.text === item.user.text &&
-        h.user.speechUrl === item.user.speechUrl &&
         h.model.text === item.model.text &&
         h.model.speechUrl === item.model.speechUrl
     );
 
     if (alreadyExists) {
-      return { success: false, missing: "already in list" };
+      return { success: false, missing: "Already in list" };
     }
 
     setHistory((prev) => [...prev, item]);
@@ -177,7 +175,7 @@ const SimpleDEPronunciationCheck: React.FC = () => {
       />
       <div className={styles.rightSide}>
         <APIKeyManager apiKey={apiKey} saveKey={saveKey} deleteKey={deleteKey} />
-        <History />
+        <History history={history}/>
       </div>
     </div>
   );
