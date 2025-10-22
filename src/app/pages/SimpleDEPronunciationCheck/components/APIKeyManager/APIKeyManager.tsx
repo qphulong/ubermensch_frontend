@@ -36,13 +36,13 @@ const APIKeyManager: React.FC<APIKeyManagerProps> = ({
           Save Key
         </button>
       </div>
+      <div className={styles.status}>
+        {apiKey ? <p>✅ API Key is loaded.</p> : <p>❌ No API Key stored.</p>}
+      </div>
       <div className={styles.section}>
         <button onClick={deleteKey} className={styles.buttonDelete}>
           Delete Key
         </button>
-      </div>
-      <div className={styles.status}>
-        {apiKey ? <p>✅ API Key is loaded.</p> : <p>❌ No API Key stored.</p>}
       </div>
     </div>
   );

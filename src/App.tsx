@@ -18,7 +18,7 @@ function App() {
         <Route path={WEB_APP_ROUTE.SEARCH_RESULTS} element={<SearchResult />} />
         <Route path={WEB_APP_ROUTE.FIRST_PAGE} element={<FirstPage />} />
         <Route path={WEB_APP_ROUTE.SIMPLE_AUTO_SEND_MAIL} element={<SimpleAutoMailSend />} />
-        <Route path='/aaa' element={<SimpleDEPronuciationCheck />} />
+        <Route path={WEB_APP_ROUTE.SIMPLE_PRONUNCIATION_CHECKER} element={<SimpleDEPronuciationCheck />} />
         <Route element={<AuthLayout />}>
           <Route path='/login' element={<Login />} />
         </Route>
