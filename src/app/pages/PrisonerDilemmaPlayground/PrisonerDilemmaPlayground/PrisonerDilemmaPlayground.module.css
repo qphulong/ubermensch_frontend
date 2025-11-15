@@ -1,0 +1,132 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #202020;
+  padding: 40px 20px;
+  color: #ffffff;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;  /* slightly wider for balance */
+  background: #202020;
+  border-radius: 10px;
+  padding: 0px;
+  box-sizing: border-box;
+  box-shadow: none !important;  /* <= removed shadow */
+}
+
+.title {
+  text-align: center;
+  margin: 0 0 40px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.divider {
+  width: 1px;
+  /* background: rgba(255,255,255,0.1); lighter + cleaner */
+  height: 100%;
+  align-self: stretch;
+}
+
+.card {
+  background: #262626;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0;
+  border-radius: 10px;
+  box-shadow: none;
+  width: 100%;
+  padding-left: 16px;
+  padding-bottom: 16px;
+  padding-right: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card button {
+  align-self: center;
+}
+
+.input {
+  background: #2f2f2f;
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 0px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #ffffff;
+  padding: 8px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 0px;
+}
+
+.primaryButton {
+  background: #007bff;       /* classic bright blue */
+  border: none;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+
+  box-shadow: 0 4px 14px rgba(0, 123, 255, 0.35);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .1s ease;
+}
+
+.primaryButton:hover {
+  background: #0a84ff;       /* subtle lighter hover */
+  box-shadow: 0 6px 18px rgba(10, 132, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+.primaryButton:active {
+  background: #006ae0;       /* slight darker on press */
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
+}
+
+.ghostButton {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.ghostButton:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.35);
+}
+

@@ -4,7 +4,9 @@ import { WEB_APP_ROUTE } from './app/global/WebAppRoute';
 import FirstPage from './app/pages/FirstPage';
 import SimpleAutoMailSend from '@/pages/SimpleAutoMailSend';
 import SimpleDEPronuciationCheck from '@/pages/SimpleDEPronunciationCheck/SimpleDEPronuciationCheck';
-import PrisonerDilemmaPlayground from '@/pages/PrisonerDilemmaPlayground';
+import PrisonerDilemmaPlayground from '@/pages/PrisonerDilemmaPlayground/PrisonerDilemmaPlayground';
+import PrisonerDilemmaPlaygroundHost from '@/pages/PrisonerDilemmaPlayground/PrisonerDilemmaPlaygroundHost';
+import PrisonerDilemmaPlaygroundPlayer from '@/pages/PrisonerDilemmaPlayground/PrisonerDilemmaPlaygroundPlayer';
 import './App.css';
 import Login from '@/pages/auth/login';
 import SearchEngine from '@/pages/SearchEngine';
@@ -21,6 +23,8 @@ function App() {
         <Route path={WEB_APP_ROUTE.SIMPLE_AUTO_SEND_MAIL} element={<SimpleAutoMailSend />} />
         <Route path={WEB_APP_ROUTE.SIMPLE_PRONUNCIATION_CHECKER} element={<SimpleDEPronuciationCheck />} />
         <Route path={WEB_APP_ROUTE.PRISONER_DILEMMA_PLAYGROUND} element={<PrisonerDilemmaPlayground/>} />
+        <Route path={WEB_APP_ROUTE.PRISONER_DILEMMA_PLAYGROUND_HOST} element={<PrisonerDilemmaPlaygroundHost/>} />
+        <Route path={WEB_APP_ROUTE.PRISONER_DILEMMA_PLAYGROUND_PLAYER} element={<PrisonerDilemmaPlaygroundPlayer/>} />
         <Route element={<AuthLayout />}>
           <Route path='/login' element={<Login />} />
         </Route>
