@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChangeEvent } from 'react';
 import { useNavigate } from "react-router-dom";
 import styles from "./PrisonerDilemmaPlayground.module.css";
 
@@ -10,13 +11,27 @@ export default function PrisonerDilemmaPlayground() {
   const [joinGameId, setJoinGameId] = useState("");
   const [playerName, setPlayerName] = useState("");
   const [playerId, setPlayerId] = useState("");
+  const [newGameConfig, setNewGameConfig] = useState({
+    points_both_cooperate: 7,
+    points_defect_against_cooperate: 10,
+    points_cooperate_against_defect: 0,
+    points_both_defect: 1,
+
+    allow_chat: true,
+    anonymous_play: true,
+
+    round_time_limit: 60,
+    number_of_rounds: 10,
+    show_round_count: false,
+  });
+
 
   const handleCreateGame = async () => {
     try {
       const res = await fetch(`${BACKEND}/create-game`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
+        body: JSON.stringify(newGameConfig),
       });
 
       if (!res.ok) throw new Error();
@@ -30,6 +45,13 @@ export default function PrisonerDilemmaPlayground() {
     } catch (err) {
       alert("Failed to create game");
     }
+  };
+
+  const handleNumber = (field: string, min: number, max: number) => (e: ChangeEvent<HTMLInputElement>) => {
+    let v = Number(e.target.value);
+    if (isNaN(v)) v = min;
+    v = Math.max(min, Math.min(max, v));
+    setNewGameConfig((c) => ({ ...c, [field]: v }));
   };
 
   const handleJoinGame = async () => {
@@ -74,10 +96,116 @@ export default function PrisonerDilemmaPlayground() {
                 Spin up a new match — you'll be the host and receive the game
                 id.
               </p>
+              <div className={styles.form}>
 
-              <button className={styles.primaryButton} onClick={handleCreateGame}>
-                Create Game
-              </button>
+                <label className={styles.label}>
+                  Points: both cooperate
+                  <input
+                    className={styles.input}
+                    type="number"
+                    value={newGameConfig.points_both_cooperate}
+                    onChange={handleNumber("points_both_cooperate", 0, 100)}
+                  />
+                </label>
+
+                <label className={styles.label}>
+                  Points: defect vs cooperate
+                  <input
+                    className={styles.input}
+                    type="number"
+                    value={newGameConfig.points_defect_against_cooperate}
+                    onChange={handleNumber("points_defect_against_cooperate", 0, 100)}
+                  />
+                </label>
+
+                <label className={styles.label}>
+                  Points: cooperate vs defect
+                  <input
+                    className={styles.input}
+                    type="number"
+                    value={newGameConfig.points_cooperate_against_defect}
+                    onChange={handleNumber("points_cooperate_against_defect", 0, 100)}
+                  />
+                </label>
+
+                <label className={styles.label}>
+                  Points: both defect
+                  <input
+                    className={styles.input}
+                    type="number"
+                    value={newGameConfig.points_both_defect}
+                    onChange={handleNumber("points_both_defect", 0, 100)}
+                  />
+                </label>
+
+                <label className={styles.label}>
+                  Allow chat
+                  <select
+                    className={styles.input}
+                    value={newGameConfig.allow_chat ? "true" : "false"}
+                    onChange={(e) =>
+                      setNewGameConfig((c) => ({ ...c, allow_chat: e.target.value === "true" }))
+                    }
+                  >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </label>
+
+                <label className={styles.label}>
+                  Anonymous play
+                  <select
+                    className={styles.input}
+                    value={newGameConfig.anonymous_play ? "true" : "false"}
+                    onChange={(e) =>
+                      setNewGameConfig((c) => ({ ...c, anonymous_play: e.target.value === "true" }))
+                    }
+                  >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </label>
+
+                <label className={styles.label}>
+                  Round time limit (sec)
+                  <input
+                    className={styles.input}
+                    type="number"
+                    value={newGameConfig.round_time_limit}
+                    onChange={handleNumber("round_time_limit", 0, 180)}
+                  />
+                </label>
+
+                <label className={styles.label}>
+                  Number of rounds
+                  <input
+                    className={styles.input}
+                    type="password"
+                    value={newGameConfig.number_of_rounds}
+                    onChange={handleNumber("number_of_rounds", 0, 100)}
+                  />
+                </label>
+
+                <label className={styles.label}>
+                  Show round count
+                  <select
+                    className={styles.input}
+                    value={newGameConfig.show_round_count ? "true" : "false"}
+                    onChange={(e) =>
+                      setNewGameConfig((c) => ({ ...c, show_round_count: e.target.value === "true" }))
+                    }
+                  >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
+                </label>
+              
+                <div className={styles.row}>
+                  <button className={styles.primaryButton} onClick={handleCreateGame}>
+                    Create Game
+                  </button>
+                </div>
+              </div>
             </div>
           </aside>
 

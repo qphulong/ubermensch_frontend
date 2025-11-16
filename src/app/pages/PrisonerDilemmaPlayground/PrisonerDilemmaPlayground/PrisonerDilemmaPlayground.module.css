@@ -1,21 +1,38 @@
 .page {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #202020;
-  padding: 40px 20px;
+  padding: 0vh 24px 8px 24px;
   color: #ffffff;
 }
 
 .container {
   width: 100%;
-  max-width: 1100px;  /* slightly wider for balance */
+  max-width: 1100px;
   background: #202020;
   border-radius: 10px;
-  padding: 0px;
   box-sizing: border-box;
-  box-shadow: none !important;  /* <= removed shadow */
+  box-shadow: none !important;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 16vh;
+  padding-top: 12vh;
+  padding-right: 34px;
+}
+
+/* Hide the scrollbar */
+.container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.container::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .title {
@@ -67,6 +84,7 @@
   font-size: 14px;
   color: #ffffff;
   padding: 8px;
+  width: auto;
 }
 
 .form {
@@ -86,7 +104,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 0px;
+  margin-top: 4px;
 }
 
 .primaryButton {
