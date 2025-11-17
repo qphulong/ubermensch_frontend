@@ -182,7 +182,7 @@ export default function PrisonerDilemmaPlayground() {
                     className={styles.input}
                     type="password"
                     value={newGameConfig.number_of_rounds}
-                    onChange={handleNumber("number_of_rounds", 0, 100)}
+                    onChange={handleNumber("number_of_rounds", 1, 100)}
                   />
                 </label>
 
