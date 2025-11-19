@@ -1,0 +1,28 @@
+.container {
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.left {
+  flex: 0 0 10%;
+  height: 100%;
+  background-color: #1a1a1a;
+  border-right: 1px solid #333333;
+}
+
+.rightPanel {
+  flex: 0 0 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.rightPanel::-webkit-scrollbar {
+  display: none;
+}
+

@@ -1,0 +1,24 @@
+.sidebar {
+  width: 100%;
+  height: 100%;
+  background: #202020;
+  padding-top: 48px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+}
+
+button {
+  background: none;
+  border: none;
+  color: #ffffffcc;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
