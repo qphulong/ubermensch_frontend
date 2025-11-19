@@ -2,8 +2,7 @@ import { useState } from "react";
 import { ChangeEvent } from 'react';
 import { useNavigate } from "react-router-dom";
 import styles from "./PrisonerDilemmaPlayground.module.css";
-
-const BACKEND = import.meta.env.VITE_BACKEND_URL;
+import { BACKEND_URL } from "../api_services";
 
 export default function PrisonerDilemmaPlayground() {
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ export default function PrisonerDilemmaPlayground() {
 
   const handleCreateGame = async () => {
     try {
-      const res = await fetch(`${BACKEND}/create-game`, {
+      const res = await fetch(`${BACKEND_URL}/create-game`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newGameConfig),
@@ -62,7 +61,7 @@ export default function PrisonerDilemmaPlayground() {
         player_id: playerId,
       };
 
-      const res = await fetch(`${BACKEND}/register-player`, {
+      const res = await fetch(`${BACKEND_URL}/register-player`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
