@@ -3,4 +3,229 @@
   height: 70vh;
   background-color: #f8f8f8;
   border-bottom: 1px solid #00000020;
+  display: flex;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.leftSide, .rightSide {
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.leftSide {
+  width: 50%;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rightSide {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  margin: 0 0 20px 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.settingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.settingRow label {
+  font-weight: 500;
+  color: #333;
+}
+
+.toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background-color: #ccc;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle.active {
+  background-color: #4ade80;
+}
+
+.toggleSlider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.toggle.active .toggleSlider {
+  transform: translateX(24px);
+}
+
+.toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.numberInput {
+  width: 100px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.numberInput:disabled {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+}
+
+.eyeButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Right Side - Matrix */
+.matrixSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+}
+
+.matrixTitle {
+  margin: 0 0 20px 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.matrixGrid {
+  display: grid;
+  grid-template-columns: 120px 100px 100px;
+  grid-template-rows: auto 60px 60px;
+  gap: 12px;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 16px;
+}
+
+.matrixCellLabel {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.matrixHeader {
+  font-weight: 600;
+  color: #444;
+}
+
+.matrixLabel {
+  font-weight: 500;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.matrixInput {
+  width: 80px;
+  height: 48px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.matrixInput:disabled {
+  background-color: #f5f5f5;
+  color: #444;
+}
+
+.matrixLegend {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: auto;
+  line-height: 1.5;
+}
+
+/* Buttons Section */
+.buttonsSection {
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 12px;
+  border-top: 1px solid #ddd;
+}
+
+.actionButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.editButton {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.editButton:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.cancelButton {
+  background-color: #ef4444;
+  color: white;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.saveButton {
+  background-color: #10b981;
+  color: white;
+}
+
+.saveButton:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.actionButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
