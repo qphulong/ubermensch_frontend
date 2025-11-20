@@ -52,7 +52,7 @@ export default function PlayersLeaderboard() {
           <div className={styles.colPoints} onClick={toggleSort}>
             Points
             <span className={styles.sortIcon}>
-              {sortOrder === "desc" ? " Down Arrow" : " Up Arrow"}
+              {sortOrder === "desc" ? "↓" : "↑"}
             </span>
           </div>
         </div>
