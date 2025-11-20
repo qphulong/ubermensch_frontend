@@ -34,6 +34,18 @@
   color: #1a1a1a;
 }
 
+.gameIdDisplay {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a5fb4;
+  background-color: #eef2ff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #c7d2fe;
+  min-width: 120px;
+  text-align: center;
+}
+
 .settingRow {
   display: flex;
   align-items: center;

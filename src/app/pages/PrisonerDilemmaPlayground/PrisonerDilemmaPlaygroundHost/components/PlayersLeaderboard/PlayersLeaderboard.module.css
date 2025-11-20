@@ -1,5 +1,165 @@
-.playerLeaderboardContainer {
+.playerLeaderBoardSection {
   width: 100%;
   height: 100vh;
-  background-color: #f8f8f8;
+  background-color: #f0f2f5;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;                 /* Prevent any outer scroll */
+}
+
+/* Left & Right Spare Panels – 25% each */
+.playerLeaderBoardSpareLeftSection,
+.playerLeaderBoardSpareRightSection {
+  width: 25%;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;                 /* Safety – no scroll inside side panels */
+}
+
+/* Center Leaderboard – 50% width */
+.playerLeaderboardContainer {
+  width: 50%;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;                 /* Crucial: no scrollbars on container itself */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ─────────────────────────────────────
+   Header (fixed)
+   ───────────────────────────────────── */
+.leaderboardHeader {
+  display: grid;
+  grid-template-columns: 60px 1fr 130px;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  flex-shrink: 0;
+}
+
+.leaderboardHeader > div {
+  padding: 18px 16px;
+}
+
+/* Points column – clickable */
+.colPoints {
+  cursor: pointer;
+  user-select: none;
+  gap: 8px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.colPoints:hover {
+  background-color: #3d566e;
+}
+
+.sortIcon {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+/* ─────────────────────────────────────
+   Body – ONLY this scrolls vertically
+   ───────────────────────────────────── */
+.leaderboardBody {
+  flex: 1;
+  overflow-y: auto;      /* Vertical scroll only */
+  overflow-x: hidden;    /* No horizontal scroll */
+  -ms-overflow-style: none;   /* IE + Edge */
+  scrollbar-width: none;      /* Firefox – hide scrollbar */
+}
+
+/* Hide scrollbar in WebKit browsers (Chrome, Safari, new Edge) */
+.leaderboardBody::-webkit-scrollbar {
+  display: none;
+}
+
+/* Optional: uncomment if you prefer a thin visible scrollbar */
+/*
+.leaderboardBody::-webkit-scrollbar {
+  width: 6px;
+}
+.leaderboardBody::-webkit-scrollbar-track {
+  background: transparent;
+}
+.leaderboardBody::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+.leaderboardBody::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.35);
+}
+*/
+
+/* ─────────────────────────────────────
+   Rows
+   ───────────────────────────────────── */
+.playerRow {
+  display: grid;
+  grid-template-columns: 60px 1fr 130px;
+  border-bottom: 1px solid #ecf0f1;
+  transition: all 0.22s ease;
+  min-width: 0;                     /* Prevents overflow in flex/grid */
+}
+
+.playerRow:hover {
+  background-color: #f8f9fa;
+  transform: translateX(4px);
+}
+
+.playerRow:last-child {
+  border-bottom: none;
+}
+
+/* ─────────────────────────────────────
+   Columns
+   ───────────────────────────────────── */
+.colRank,
+.colPlayer,
+.colPoints {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.colRank {
+  font-weight: 700;
+  color: #7f8c8d;
+  font-size: 1.15em;
+}
+
+.colPlayer {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.playerName {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.playerId {
+  font-size: 0.8rem;
+  color: #95a5a6;
+}
+
+.colPoints {
+  font-weight: 700;
+  color: #27ae60;
+  font-size: 1.15em;
+  justify-content: flex-end;
 }

@@ -86,6 +86,12 @@ export default function GameSettings() {
     <div className={styles.gameSettingsContainer}>
       <div className={styles.leftSide}>
         <h2 className={styles.sectionTitle}>Game Settings</h2>
+        <div className={styles.settingRow}>
+          <label>Game ID</label>
+          <div className={styles.gameIdDisplay}>
+            {localStorage.getItem("game_id") || "—"}
+          </div>
+        </div>
 
         <div className={styles.settingRow}>
           <label>Allow Chat</label>
