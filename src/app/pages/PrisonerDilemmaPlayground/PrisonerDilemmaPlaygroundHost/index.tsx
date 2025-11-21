@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import GameSettings from "./components/GameSettings/GameSettings";
 import GameOrchestra from "./components/GameOrchestra/GameOrchestra";
@@ -10,6 +10,30 @@ export default function PrisonerDilemmaPlaygroundHost() {
   const settingsRef = useRef<HTMLDivElement>(null!);
   const orchestraRef = useRef<HTMLDivElement>(null!);
   const leaderboardRef = useRef<HTMLDivElement>(null!);
+
+  // WebSocket 
+  useEffect(() => {
+    let ws: WebSocket | null = null;
+
+    const gameId = localStorage.getItem("game_id")!;
+    ws = new WebSocket(`ws://localhost:8000/ws/${gameId}`);
+
+    ws.onopen = () => {
+      ws!.send(JSON.stringify({ role: "host" }));
+    };
+
+    ws.onmessage = (e) => {
+      const data = JSON.parse(e.data);
+      if (data.type === "player_joined") {
+        console.log("New player:", data.player_id);
+      }
+    };
+
+    // Cleanup only the one we created
+    return () => {
+      ws?.close();
+    };
+  }, []);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     if (!rightPanelRef.current || !ref.current) return;
