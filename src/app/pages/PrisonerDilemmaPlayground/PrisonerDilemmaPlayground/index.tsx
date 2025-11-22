@@ -3,6 +3,8 @@ import { ChangeEvent } from 'react';
 import { useNavigate } from "react-router-dom";
 import styles from "./PrisonerDilemmaPlayground.module.css";
 import { BACKEND_URL } from "../api_services";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function PrisonerDilemmaPlayground() {
   const navigate = useNavigate();
@@ -24,7 +26,6 @@ export default function PrisonerDilemmaPlayground() {
     show_round_count: false,
   });
 
-
   const handleCreateGame = async () => {
     try {
       const res = await fetch(`${BACKEND_URL}/create-game`, {
@@ -33,16 +34,23 @@ export default function PrisonerDilemmaPlayground() {
         body: JSON.stringify(newGameConfig),
       });
 
-      if (!res.ok) throw new Error();
-
       const data = await res.json();
+
+      if (!res.ok) {
+        if (data.detail?.includes("Maximum")) {
+          toast.error("Cannot create game: Maximum number of games reached");
+        } else {
+          toast.error(data.detail || "Failed to create game");
+        }
+        return;
+      }
 
       localStorage.setItem("game_id", data.game_id);
       localStorage.setItem("game_password", data.game_password);
 
       navigate("/prisoner_dilemma_playground/host");
     } catch (err) {
-      alert("Failed to create game");
+      toast.error("Failed to create game — check your connection");
     }
   };
 
@@ -54,6 +62,11 @@ export default function PrisonerDilemmaPlayground() {
   };
 
   const handleJoinGame = async () => {
+    if (!joinGameId.trim() || !playerName.trim() || !playerId.trim()) {
+      toast.warn("Please fill in all fields");
+      return;
+    }
+
     try {
       const payload = {
         game_id: joinGameId,
@@ -69,8 +82,13 @@ export default function PrisonerDilemmaPlayground() {
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.detail || "Fail");
+      if (!res.ok) {
+        const errorMessage = data.detail || "Failed to join game";
+        toast.error(errorMessage);
+        return;
+      }
 
+      // Success — store everything including the generated password
       localStorage.setItem("game_id", joinGameId);
       localStorage.setItem("player_name", playerName);
       localStorage.setItem("player_id", playerId);
@@ -78,7 +96,7 @@ export default function PrisonerDilemmaPlayground() {
 
       navigate("/prisoner_dilemma_playground/player");
     } catch (err) {
-      console.error(err);
+      toast.error("Failed to join game — check your connection");
     }
   };
 
@@ -262,6 +280,15 @@ export default function PrisonerDilemmaPlayground() {
             </div>
           </section>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          theme="dark"
+        />
       </div>
     </div>
   );
