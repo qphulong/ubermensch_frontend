@@ -1,15 +1,22 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import GameSettings from "./components/GameSettings/GameSettings";
 import GameOrchestra from "./components/GameOrchestra/GameOrchestra";
 import PlayersLeaderboard from "./components/PlayersLeaderboard/PlayersLeaderboard";
 import styles from "./PrisonerDilemmaPlaygroundHost.module.css";
 
+export interface Player {
+  id: string;
+  name: string;
+  points: number;
+}
+
 export default function PrisonerDilemmaPlaygroundHost() {
   const rightPanelRef = useRef<HTMLDivElement>(null!);
   const settingsRef = useRef<HTMLDivElement>(null!);
   const orchestraRef = useRef<HTMLDivElement>(null!);
   const leaderboardRef = useRef<HTMLDivElement>(null!);
+  const [players, setPlayers] = useState<Player[]>([]);
 
   // WebSocket 
   useEffect(() => {
@@ -24,12 +31,29 @@ export default function PrisonerDilemmaPlaygroundHost() {
 
     ws.onmessage = (e) => {
       const data = JSON.parse(e.data);
+
       if (data.type === "player_joined") {
-        console.log("New player:", data.player_id);
+        const newPlayer: Player = {
+          id: data.player_id,
+          name: data.player_name,
+          points: 0,
+        };
+
+        setPlayers(prev => {
+          if (prev.some(p => p.id === newPlayer.id)) return prev;
+          return [...prev, newPlayer];
+        });
+      }
+
+      if (data.type === "game_expired") {
+        alert(data.message || "Game session expired due to inactivity.");
+
+        localStorage.clear(); // or remove specific keys
+        window.location.href = "/prisoner_dilemma_playground";
+        return;
       }
     };
 
-    // Cleanup only the one we created
     return () => {
       ws?.close();
     };
@@ -73,7 +97,7 @@ export default function PrisonerDilemmaPlaygroundHost() {
           <GameOrchestra />
         </div>
         <div ref={leaderboardRef}>
-          <PlayersLeaderboard />
+          <PlayersLeaderboard players={players} />
         </div>
       </div>
     </div>

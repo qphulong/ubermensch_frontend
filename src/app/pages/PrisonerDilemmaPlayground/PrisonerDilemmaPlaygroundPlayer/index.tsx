@@ -9,6 +9,7 @@ export default function PrisonerDilemmaPlaygroundPlayer() {
 
       const gameId = localStorage.getItem("game_id");
       const playerId = localStorage.getItem("player_id")!;
+      const playerName = localStorage.getItem("player_name")!;
 
       ws = new WebSocket(`ws://localhost:8000/ws/${gameId}`);
 
@@ -16,13 +17,27 @@ export default function PrisonerDilemmaPlaygroundPlayer() {
         console.log("[Player WS] open → sending identity");
         ws!.send(JSON.stringify({
           role: "player",
-          player_id: playerId
+          player_id: playerId,
+          player_name: playerName
         }));
       };
 
       ws.onmessage = (e) => {
-        console.log("[Player WS] received", e.data);
-        // future: countdown, chat, etc.
+        try {
+          const data = JSON.parse(e.data);
+
+          if (data.type === "game_expired") {
+            alert(data.message || "Game session expired due to inactivity.");
+
+            localStorage.clear();
+            window.location.href = "/prisoner_dilemma_playground";
+            return;
+          }
+
+          // ... handle other messages
+        } catch (e) {
+          console.error("Invalid WS message", e);
+        }
       };
 
       ws.onclose = () => console.log("[Player WS] closed");
