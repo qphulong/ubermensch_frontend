@@ -9,6 +9,7 @@ export default function PrisonerDilemmaPlaygroundPlayer() {
 
       const gameId = localStorage.getItem("game_id");
       const playerId = localStorage.getItem("player_id")!;
+      const playerPassword = localStorage.getItem("player_password")!;
       const playerName = localStorage.getItem("player_name")!;
 
       ws = new WebSocket(`ws://localhost:8000/ws/${gameId}`);
@@ -18,7 +19,9 @@ export default function PrisonerDilemmaPlaygroundPlayer() {
         ws!.send(JSON.stringify({
           role: "player",
           player_id: playerId,
-          player_name: playerName
+          player_name: playerName,
+          player_password: playerPassword,
+          game_id: gameId
         }));
       };
 

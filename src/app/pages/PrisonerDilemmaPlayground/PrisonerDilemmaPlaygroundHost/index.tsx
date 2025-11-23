@@ -71,6 +71,12 @@ export default function PrisonerDilemmaPlaygroundHost() {
         window.location.href = "/prisoner_dilemma_playground";
         return;
       }
+
+      if (data.type === "player_left" && data.updated_player_list) {
+        setPlayers(data.updated_player_list as Player[]);
+        console.log(`Player ${data.player_password} left. Players updated.`);
+        return;
+      }
     };
 
     return () => {
