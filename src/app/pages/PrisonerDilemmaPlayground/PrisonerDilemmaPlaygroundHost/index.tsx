@@ -4,19 +4,38 @@ import GameSettings from "./components/GameSettings/GameSettings";
 import GameOrchestra from "./components/GameOrchestra/GameOrchestra";
 import PlayersLeaderboard from "./components/PlayersLeaderboard/PlayersLeaderboard";
 import styles from "./PrisonerDilemmaPlaygroundHost.module.css";
+import { BACKEND_URL } from "../api_services";
+import { WEB_APP_ROUTE } from "@/global/WebAppRoute";
+import { useNavigate } from "react-router-dom";
 
 export interface Player {
   id: string;
   name: string;
   points: number;
 }
+export interface GameConfig {
+  points_both_cooperate: number;
+  points_defect_against_cooperate: number;
+  points_cooperate_against_defect: number;
+  points_both_defect: number;
+  allow_chat: boolean;
+  anonymous_play: boolean;
+  round_time_limit: number;
+  number_of_rounds: number;
+  show_round_count: boolean;
+}
 
 export default function PrisonerDilemmaPlaygroundHost() {
+  const navigate = useNavigate();
+
   const rightPanelRef = useRef<HTMLDivElement>(null!);
   const settingsRef = useRef<HTMLDivElement>(null!);
   const orchestraRef = useRef<HTMLDivElement>(null!);
   const leaderboardRef = useRef<HTMLDivElement>(null!);
+
   const [players, setPlayers] = useState<Player[]>([]);
+  const [currentRound, setCurrentRound] = useState<number>(0);
+  const [gameConfig, setGameConfig] = useState<GameConfig | null>(null);
 
   // WebSocket 
   useEffect(() => {
@@ -57,6 +76,53 @@ export default function PrisonerDilemmaPlaygroundHost() {
     return () => {
       ws?.close();
     };
+  }, []);
+
+  // Get the game info once when load, redirect back to dashboard page if authen fail
+  useEffect(() => {
+    const fetchGameInfo = async () => {
+      const gameId = localStorage.getItem("game_id");
+      const gamePassword = localStorage.getItem("game_password");
+
+      if (!gameId || !gamePassword) {
+        navigate(WEB_APP_ROUTE.PRISONER_DILEMMA_PLAYGROUND, { replace: true });
+        return;
+      }
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/host-get-game-info`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            game_id: gameId,
+            game_password: gamePassword,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        setCurrentRound(data.current_round);
+        setPlayers(
+          data.players.map((p:any): Player => ({
+            id: p.player_id,
+            name: p.player_name,
+            points: p.points_gained,
+          }))
+        );
+        setGameConfig(data.game_config);
+      } catch (err) {
+        console.error("Failed to load game info:", err);
+        navigate(WEB_APP_ROUTE.PRISONER_DILEMMA_PLAYGROUND, { replace: true });
+      }
+    };
+
+    fetchGameInfo();
   }, []);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {

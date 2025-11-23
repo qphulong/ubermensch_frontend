@@ -88,7 +88,7 @@ export default function PrisonerDilemmaPlayground() {
         return;
       }
 
-      // Success — store everything including the generated password
+      // Success — store everything
       localStorage.setItem("game_id", joinGameId);
       localStorage.setItem("player_name", playerName);
       localStorage.setItem("player_id", playerId);
