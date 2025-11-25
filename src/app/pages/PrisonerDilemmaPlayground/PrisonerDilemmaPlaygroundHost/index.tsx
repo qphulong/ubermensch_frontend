@@ -23,6 +23,7 @@ export interface GameConfig {
   round_time_limit: number;
   number_of_rounds: number;
   show_round_count: boolean;
+  allow_player_to_join: boolean;
 }
 
 export default function PrisonerDilemmaPlaygroundHost() {
