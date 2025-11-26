@@ -1,86 +1,105 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./GameSettings.module.css";
 import { Eye, EyeOff } from "lucide-react";
+import { GameConfig } from "../..";
+import { BACKEND_URL } from "@/pages/PrisonerDilemmaPlayground/api_services";
+interface GameSettingsProps {
+  currentConfig: GameConfig;
+  onSave: (config: GameConfig) => void;
+}
 
-export default function GameSettings() {
+export default function GameSettings({ currentConfig, onSave }: GameSettingsProps) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [draft, setDraft] = useState<GameConfig>(currentConfig);
 
-  // Left side settings
-  const [allowChat, setAllowChat] = useState(true);
-  const [anonymousPlay, setAnonymousPlay] = useState(false);
-  const [roundTimeLimit, setRoundTimeLimit] = useState("60");
-  const [numberOfRounds, setNumberOfRounds] = useState("10");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRoundCount, setShowRoundCount] = useState(true);
-
-  // Reward matrix (Prisoner's Dilemma)
-  const [matrix, setMatrix] = useState({
-    bothCooperate: "70",
-    bothDefect: "20",
-    oneCooperates: "10",
-    oneDefects: "90",
-  });
-
-  // For canceling changes
-  const [originalState, setOriginalState] = useState({
-    allowChat,
-    anonymousPlay,
-    roundTimeLimit,
-    numberOfRounds,
-    password,
-    showRoundCount,
-    matrix: { ...matrix },
-  });
+  // Sync draft when parent config changes AND we're not editing
+  useEffect(() => {
+    if (!isEditMode) {
+      setDraft(currentConfig);
+    }
+  }, [currentConfig, isEditMode]);
 
   const enterEditMode = () => {
-    setOriginalState({
-      allowChat,
-      anonymousPlay,
-      roundTimeLimit,
-      numberOfRounds,
-      password,
-      showRoundCount,
-      matrix: { ...matrix },
-    });
+    setDraft(currentConfig); // make fresh copy
     setIsEditMode(true);
   };
 
   const cancelChanges = () => {
-    setAllowChat(originalState.allowChat);
-    setAnonymousPlay(originalState.anonymousPlay);
-    setRoundTimeLimit(originalState.roundTimeLimit);
-    setNumberOfRounds(originalState.numberOfRounds);
-    setPassword(originalState.password);
-    setShowRoundCount(originalState.showRoundCount);
-    setMatrix({ ...originalState.matrix });
+    setDraft(currentConfig); // reset to real config
     setIsEditMode(false);
   };
 
   const saveChanges = () => {
+    onSave(draft);
     setIsEditMode(false);
+
+    const gameId = localStorage.getItem("game_id");
+    const gamePassword = localStorage.getItem("game_password");
+
+    // Fire-and-forget POST request matching exact backend shape
+    fetch(`${BACKEND_URL}/host-edit-game-config`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        hostAuth: {
+          game_id: gameId,
+          game_password: gamePassword,
+        },
+        new_config: {
+          allow_chat: draft.allow_chat,
+          anonymous_play: draft.anonymous_play,
+          round_time_limit: draft.round_time_limit,
+          number_of_rounds: draft.number_of_rounds,
+          show_round_count: draft.show_round_count,
+          points_both_cooperate: draft.points_both_cooperate,
+          points_both_defect: draft.points_both_defect,
+          points_cooperate_against_defect: draft.points_cooperate_against_defect,
+          points_defect_against_cooperate: draft.points_defect_against_cooperate,
+        },
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          console.error("Failed to save config:", res.status, res.statusText);
+        }
+      })
+      .catch((err) => {
+        console.error("Network error while saving game config:", err);
+      });
+
+    // No await → truly fire-and-forget
   };
 
-  // Input validation helpers
-  const handleRoundTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === "" || (/^\d+$/.test(value) && parseInt(value) > 0 && parseInt(value) <= 180)) {
-      setRoundTimeLimit(value);
+  const update = <K extends keyof GameConfig>(key: K, value: GameConfig[K]) => {
+    setDraft(prev => ({ ...prev, [key]: value }));
+  };
+
+  // Validation helpers
+  const setRoundTime = (value: string) => {
+    if (value === "" || (/^\d+$/.test(value) && +value > 0 && +value <= 180)) {
+      update("round_time_limit", value === "" ? 0 : +value);
     }
   };
 
-  const handleRoundsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === "" || (/^\d+$/.test(value) && parseInt(value) >= 1 && parseInt(value) <= 100)) {
-      setNumberOfRounds(value);
+  const setRounds = (value: string) => {
+    if (value === "" || (/^\d+$/.test(value) && +value >= 1 && +value <= 100)) {
+      update("number_of_rounds", value === "" ? 0 : +value);
     }
   };
 
-  const handleMatrixChange = (key: keyof typeof matrix, value: string) => {
-    if (value === "" || (/^\d+$/.test(value) && parseInt(value) >= 0 && parseInt(value) <= 100)) {
-      setMatrix(prev => ({ ...prev, [key]: value }));
+  const setMatrixValue = (
+    key: "points_both_cooperate" | "points_defect_against_cooperate" |
+          "points_cooperate_against_defect" | "points_both_defect",
+    value: string
+  ) => {
+    if (value === "" || (/^\d+$/.test(value) && +value >= 0 && +value <= 100)) {
+      update(key, value === "" ? 0 : +value);
     }
   };
+
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className={styles.gameSettingsContainer}>
@@ -96,8 +115,8 @@ export default function GameSettings() {
         <div className={styles.settingRow}>
           <label>Allow Chat</label>
           <button
-            className={`${styles.toggle} ${allowChat ? styles.active : ""}`}
-            onClick={() => isEditMode && setAllowChat(!allowChat)}
+            className={`${styles.toggle} ${draft.allow_chat ? styles.active : ""}`}
+            onClick={() => isEditMode && update("allow_chat", !draft.allow_chat)}
             disabled={!isEditMode}
           >
             <span className={styles.toggleSlider}></span>
@@ -107,8 +126,8 @@ export default function GameSettings() {
         <div className={styles.settingRow}>
           <label>Anonymous Play</label>
           <button
-            className={`${styles.toggle} ${anonymousPlay ? styles.active : ""}`}
-            onClick={() => isEditMode && setAnonymousPlay(!anonymousPlay)}
+            className={`${styles.toggle} ${draft.anonymous_play ? styles.active : ""}`}
+            onClick={() => isEditMode && update("anonymous_play", !draft.anonymous_play)}
             disabled={!isEditMode}
           >
             <span className={styles.toggleSlider}></span>
@@ -119,8 +138,8 @@ export default function GameSettings() {
           <label>Round Time Limit (seconds)</label>
           <input
             type="text"
-            value={roundTimeLimit}
-            onChange={handleRoundTimeChange}
+            value={draft.round_time_limit }
+            onChange={e => setRoundTime(e.target.value)}
             disabled={!isEditMode}
             className={styles.numberInput}
           />
@@ -131,8 +150,8 @@ export default function GameSettings() {
           <div className={styles.passwordWrapper}>
             <input
               type={showPassword ? "text" : "password"}
-              value={numberOfRounds}
-              onChange={handleRoundsChange}
+              value={draft.number_of_rounds}
+              onChange={e => setRounds(e.target.value)}
               disabled={!isEditMode}
               className={styles.numberInput}
             />
@@ -151,8 +170,8 @@ export default function GameSettings() {
         <div className={styles.settingRow}>
           <label>Show Round Count</label>
           <button
-            className={`${styles.toggle} ${showRoundCount ? styles.active : ""}`}
-            onClick={() => isEditMode && setShowRoundCount(!showRoundCount)}
+            className={`${styles.toggle} ${draft.show_round_count ? styles.active : ""}`}
+            onClick={() => isEditMode && update("show_round_count", !draft.show_round_count)}
             disabled={!isEditMode}
           >
             <span className={styles.toggleSlider}></span>
@@ -171,15 +190,15 @@ export default function GameSettings() {
             <div className={styles.matrixLabel}>Cooperate</div>
             <input
               type="text"
-              value={matrix.bothCooperate}
-              onChange={(e) => handleMatrixChange("bothCooperate", e.target.value)}
+              value={draft.points_both_cooperate}
+              onChange={e => setMatrixValue("points_both_cooperate", e.target.value)}
               disabled={!isEditMode}
               className={styles.matrixInput}
             />
             <input
               type="text"
-              value={matrix.oneCooperates}
-              onChange={(e) => handleMatrixChange("oneCooperates", e.target.value)}
+              value={draft.points_cooperate_against_defect}
+              onChange={e => setMatrixValue("points_cooperate_against_defect", e.target.value)}
               disabled={!isEditMode}
               className={styles.matrixInput}
             />
@@ -187,22 +206,18 @@ export default function GameSettings() {
             <div className={styles.matrixLabel}>Defect</div>
             <input
               type="text"
-              value={matrix.oneDefects}
-              onChange={(e) => handleMatrixChange("oneDefects", e.target.value)}
+              value={draft.points_defect_against_cooperate}
+              onChange={e => setMatrixValue("points_defect_against_cooperate", e.target.value)}
               disabled={!isEditMode}
               className={styles.matrixInput}
             />
             <input
               type="text"
-              value={matrix.bothDefect}
-              onChange={(e) => handleMatrixChange("bothDefect", e.target.value)}
+              value={draft.points_both_defect}
+              onChange={e => setMatrixValue("points_both_defect", e.target.value)}
               disabled={!isEditMode}
               className={styles.matrixInput}
             />
-          </div>
-          <div className={styles.matrixLegend}>
-            <p><strong>T</strong> = Temptation ({matrix.oneDefects}), <strong>R</strong> = Reward ({matrix.bothCooperate})</p>
-            <p><strong>P</strong> = Punishment ({matrix.bothDefect}), <strong>S</strong> = Sucker ({matrix.oneCooperates})</p>
           </div>
         </div>
 
